@@ -9,6 +9,14 @@ void printVector(vector *v)
 	}
 }	
 
+void fillVector(vector *v)
+{
+	for(int i = 0; i < 100; i++)
+	{
+		pushBackVector(v, i*i);
+	}
+}
+
 int main()
 {
 	vector *v = initVector();
@@ -33,12 +41,13 @@ int main()
 	printVector(v);
 	freeVector(v);
 
-	vector *v1 = initVector(), *v2 = initVector();
-	pushBackVector(v1, 28); pushBackVector(v2, 29);
-	pushBackVector(v1, 332);
-	printf("\nVector 1: %p\nVector 2: %p\n", v1->arr, v2->arr);
-	printf("Swapping Vectors...\n"); swapVector(v1, v2);
-	printf("Vector 1: %p\nVector 2: %p\n", v1->arr, v2->arr);
+	vector *v1 = initVector();
+	vector *v2 = initVector();
+	fillVector(v1); fillVector(v2);
+	printf("%p, %p\n", v1, v2);
+	printf("%p, %p\n", dataVector(v1), dataVector(v2));
+	printf("Swapping data pointers\n"); swapVector(v1, v2);
+	printf("%p, %p\n", dataVector(v1), dataVector(v2));
 	freeVector(v1);
 	freeVector(v2);
 }	

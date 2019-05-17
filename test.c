@@ -20,7 +20,7 @@ int main()
 	printVector(v);
 
 	printf("\n\nDeleting element %d ...\n", v->size - 1);
-	deleteVector(v, v->size-1);
+	eraseVector(v, v->size-1);
 
 	printVector(v);
 	freeVector(v);

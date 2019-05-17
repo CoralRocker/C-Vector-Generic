@@ -2,7 +2,7 @@
 #include <string.h>
 
 typedef struct vector {
-	int* arr;
+	void** arr;
 	int size;
 } vector;
 
@@ -22,7 +22,7 @@ typedef struct vector {
  */
 vector* initVector()
 {
-	vector *v = (vector*)malloc(sizeof(int*) + sizeof(int));
+	vector *v = (vector*)malloc(sizeof(void**) + sizeof(int));
 	v->arr = NULL;
 	v->size = 0;
 	return v;
@@ -42,14 +42,14 @@ void freeVector(vector *v)
 /* Adds an integer to the last position of the vector, adding a position there for said integer.
  * Increases the size value of the vector as well.
  */
-void pushBackVector(vector *v, int value)
+void pushBackVector(vector *v, void* value)
 {
-	int* temp = (int*)malloc(sizeof(int)*v->size);
-	memcpy(temp, v->arr, sizeof(int)*v->size);
+	void** temp = (void**)malloc(sizeof(void*)*v->size);
+	memcpy(temp, v->arr, sizeof(void*)*v->size);
 	free(v->arr);
 	v->size++;
-	v->arr = (int*)malloc(sizeof(int)*v->size);
-	memcpy(v->arr, temp, sizeof(int)*(v->size - 1));
+	v->arr = (void**)malloc(sizeof(void*)*v->size);
+	memcpy(v->arr, temp, sizeof(void*)*(v->size - 1));
 	v->arr[v->size - 1] = value;
 	free(temp);
 }
@@ -64,14 +64,14 @@ void pushBackVector(vector *v, int value)
  *
  * Vector1: [1, 2, 6, 3, 4, 5] After insertion
  */
-void insertVector(vector *v, int index, int value)
+void insertVector(vector *v, int index, void* value)
 {
-	int* temp = (int*)malloc(sizeof(int)*(v->size));
-	memcpy(temp, v->arr, sizeof(int)*(v->size));
+	void** temp = (void**)malloc(sizeof(void*)*(v->size));
+	memcpy(temp, v->arr, sizeof(void*)*(v->size));
 	free(v->arr);
 	v->size++;
-	v->arr = (int*)malloc(sizeof(int)*v->size);
-	memcpy(v->arr, temp, sizeof(int)*(v->size - 1));
+	v->arr = (void**)malloc(sizeof(void*)*v->size);
+	memcpy(v->arr, temp, sizeof(void*)*(v->size - 1));
 	for(int i = v->size - 1; i > index; i--)
 	{
 		v->arr[i] = temp[i-1];
@@ -82,7 +82,7 @@ void insertVector(vector *v, int index, int value)
 
 /* Sets a specific index in the vector to a specific value
  */
-void assignVector(vector *v, int index, int value)
+void assignVector(vector *v, int index, void* value)
 {
 	if(index < v->size && index >= 0)
 		v->arr[index] = value;
@@ -95,15 +95,15 @@ void eraseVector(vector *v, int index)
 {
 	if(index >= v->size || index < 0)
 		return;
-	int* temp = (int*)malloc(sizeof(int)*v->size);
-	memcpy(temp, v->arr, sizeof(int)*v->size);
+	void** temp = (void**)malloc(sizeof(void*)*v->size);
+	memcpy(temp, v->arr, sizeof(void*)*v->size);
 	free(v->arr);
 	v->size--;
-	v->arr = (int*)malloc(sizeof(int)*v->size);
+	v->arr = (void**)malloc(sizeof(void*)*v->size);
 
-	memcpy(v->arr, temp, sizeof(int)*index);
-	memcpy(v->arr+index+1, temp, sizeof(int)*(v->size - index));
-	//memcpy(v->arr + (v->size - index), temp+index+1, sizeof(int)*(v->size - index + 1));
+	memcpy(v->arr, temp, sizeof(void*)*index);
+	memcpy(v->arr+index+1, temp, sizeof(void*)*(v->size - index));
+	//memcpy(v->arr + (v->size - index), temp+index+1, sizeof(void*)*(v->size - index + 1));
 	free(temp);
 }
 
@@ -119,14 +119,14 @@ void copyVector(vector *src, vector *dst, size_t size)
 	if(size > 0 && size <= src->size && size)
 	{
 		free(dst->arr);
-		dst->arr = (int*)malloc(sizeof(int)*size);
+		dst->arr = (void**)malloc(sizeof(void*)*size);
 		dst->size = size;
 		memcpy(dst, src, size);
 	}
 	else if(size > 0 && size > src->size)
 	{
 		free(dst->arr);
-		dst->arr = (int*)malloc(sizeof(int)*src->size);
+		dst->arr = (void**)malloc(sizeof(void*)*src->size);
 		dst->size = src->size;
 		memcpy(dst, src, src->size);
 	}
@@ -150,21 +150,21 @@ void swapVector(vector *v1, vector *v2)
 
 /* Gets the value of element at given index. Returns 0 if the index is invalid.
  */
-int atVector(vector *v, int index)
+void* atVector(vector *v, int index)
 {
 	return (v->size > index && index >= 0) ? v->arr[index] : 0;
 }
 
 /* Gets the value of the first element in the vector. Returns 0 if the vector is of size 0.
  */
-int frontVector(vector *v)
+void** frontVector(vector *v)
 {
 	return (v->size > 0) ? v->arr[0] : 0;
 }
 
 /* Gets the value of the last  element in the vector. Returns 0 if the vector is of size 0.
  */
-int backVector(vector *v)
+void* backVector(vector *v)
 {
 	return (v->size > 0) ? v->arr[v->size-1] : 0; 
 }
@@ -173,7 +173,7 @@ int backVector(vector *v)
  */
 void clearVector(vector *v)
 {
-	memset(v->arr, 0, sizeof(int)*v->size);
+	memset(v->arr, 0, sizeof(void*)*v->size);
 	free(v->arr);
 	v->arr = NULL;
 	v->size = 0;
@@ -181,7 +181,7 @@ void clearVector(vector *v)
 
 /* Returns the pointer to the vector's data array.
  */
-int* dataVector(vector *v)
+void** dataVector(vector *v)
 {
 	return v->arr;
 }

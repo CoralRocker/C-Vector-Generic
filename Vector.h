@@ -143,9 +143,9 @@ void popBackVector(vector *v)
  */
 void swapVector(vector *v1, vector *v2)
 {
-	vector *temp = v1;
-	v1 = v2;
-	v2 = v1;
+	void** tmp = v1->arr;
+	v1->arr = v2->arr;
+	v2->arr = tmp;
 }
 
 /* Gets the value of element at given index. Returns 0 if the index is invalid.

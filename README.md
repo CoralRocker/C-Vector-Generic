@@ -1,6 +1,9 @@
 # C-Vector
 A vector system modeled on the C++ vector class, with all of the modifier and accessor methods, except for the two emplace methods and the [] operator.
 
+# Why use a vector?
+A vector allows for a dynamically sized array. The methods contained in this library can be used in order to replace code which would otherwise have to be written in order to do the same operations. Additionally, the vector 'class' does not take into consideration the type of element it holds, and thus can hold anything. It only works when large amounts of continuous free memory exist on a system. It is faster than a linked list as it is very easy to index through the memory to retrieve an object. However, its size is limited by the amount of continuous memory available in a system at any given moment. 
+
 # Accessor Methods
 |Method|Usage|
 |:-:|:-|

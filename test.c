@@ -22,9 +22,9 @@ int main()
 
 	/* Create Vector */
 	vector *v = initVector();
-	printf("Initializing vector...n");
+	printf("Initializing vector...\n");
 	for(int i = 0; i < 20; i++)
-		insertVector(v, i, i*3 + 1);
+		insertVector(v, i, i);
 	printVector(v);
 
 	/* Test accessor methods */
@@ -40,7 +40,7 @@ int main()
 	printf("\nModifier Methods:\n");
 	printf("assignVector(v, 2, 69)\n"); assignVector(v, 2, 69);
 	printf("popBackVector(v)\n"); popBackVector(v);
-	printf("pushBackVector(v, 420)\n"); pushBackVector(v, 420);
+	printf("pushBackVector(v, 20)\n"); pushBackVector(v, 20);
 	printf("insertVector(v, 0, 74)\n"); insertVector(v, 0, 74);
 	printf("eraseVector(v, 6)\n\n"); eraseVector(v, 6);
 

@@ -93,17 +93,24 @@ void assignVector(vector *v, int index, void* value)
  */
 void eraseVector(vector *v, int index)
 {
+	// Error Checking
 	if(index >= v->size || index < 0)
 		return;
-	void** temp = (void**)malloc(sizeof(void*)*v->size);
+	
+	// Temporary Arrays
+	void** temp = malloc(sizeof(void*)*v->size);
 	memcpy(temp, v->arr, sizeof(void*)*v->size);
+
+	// Update Actual Array
 	free(v->arr);
 	v->size--;
-	v->arr = (void**)malloc(sizeof(void*)*v->size);
+	v->arr = malloc(sizeof(void*)*v->size);
 
+	// Move Information
 	memcpy(v->arr, temp, sizeof(void*)*index);
-	memcpy(v->arr+index+1, temp, sizeof(void*)*(v->size - index));
-	//memcpy(v->arr + (v->size - index), temp+index+1, sizeof(void*)*(v->size - index + 1));
+	memcpy(v->arr+index, temp+index+1, sizeof(void*)*(v->size - index));
+
+	// Free Temp
 	free(temp);
 }
 

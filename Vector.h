@@ -39,6 +39,16 @@ void freeVector(vector *v)
 	free(v);
 }
 
+/* Frees every individual element of the vector. Usefull when storing information that's been
+ * malloc'd. THE VECTOR MEMORY MUST HAVE BEEN MALLOC'D TO MAKE USE OF THIS FUNCTION!
+ */
+void rfreeVector(vector *v)
+{
+	for(int i = 0; i < v->size; i++)
+		free(v->arr[i]);
+	free(v->arr);
+	free(v);
+}
 /* Adds an integer to the last position of the vector, adding a position there for said integer.
  * Increases the size value of the vector as well.
  */
